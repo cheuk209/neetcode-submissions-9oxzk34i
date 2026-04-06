@@ -2,16 +2,16 @@ class Solution:
 
     def encode(self, strs: List[str]) -> str:
         encoded_str = ""
-        for each_str in strs:
-            encoded_str += str(len(each_str)) + "#" + each_str
-        return encoded_str
-
+        for each_strs in strs:
+            encoded_str += str(len(each_strs)) + "%" + each_strs
+        return encoded_str 
     def decode(self, s: str) -> List[str]:
-        decoded_result = []
+        results_strings = []
         i = 0
         while i < len(s):
-            j = s.find("#", i)
-            length = int(s[i:j])
-            decoded_result.append(s[j + 1 : j + 1 + length])
-            i = j + 1 + length
-        return decoded_result
+            delimiter_index = s.find("%", i)
+            expected_len = int(s[i:delimiter_index]) # extract the len integer, stopping at the delimiter
+            substring = s[delimiter_index + 1 : delimiter_index + 1 + expected_len]
+            results_strings.append(substring)
+            i = delimiter_index + 1 + expected_len
+        return results_strings
